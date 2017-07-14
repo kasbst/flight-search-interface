@@ -3,16 +3,16 @@ $(document).ready(function($) {
     * Call modal when clicking on a row in departures table 
     */
     $("#DeparturesTablePlaceholder").on("click", ".clickable-row", function() {
-		var id = $(this).attr('id');
-		$("#DeparturesModal-" + id).modal()
+	   var id = $(this).attr('id');
+	   $("#DeparturesModal-" + id).modal()
     });
 	
     /* 
      * Call modal when clicking on a row in returns table 
     */
     $("#ReturnsTablePlaceholder").on("click", ".clickable-row", function() {
-		var id = $(this).attr('id');
-		$("#ReturnsModal-" + id).modal()
+	    var id = $(this).attr('id');
+	    $("#ReturnsModal-" + id).modal()
     });
 	
     /* 
@@ -49,7 +49,7 @@ $(document).ready(function($) {
 		// Imput fields verification
 		if(FormInputVerification (e, "#DepartureFrom", "#DepartureTo", "#DepartureDate", 
 			"#DeparturesLoading", "#DeparturesTablePlaceholder", "#DeparturesError", 
-		    "#departure_from_airport_code", "#departure_to_airport_code")) {
+		        "#departure_from_airport_code", "#departure_to_airport_code")) {
 			return;
 		}
 		// Prevent page to be reloaded
@@ -100,7 +100,7 @@ $(document).ready(function($) {
 		// Imput fields verification
 		if(FormInputVerification (e, "#ReturnFrom", "#ReturnTo", "#ReturnDate", 
 			"#ReturnsLoading", "#ReturnsTablePlaceholder", "#ReturnsError",
-		"#return_from_airport_code", "#return_to_airport_code")) {
+		        "#return_from_airport_code", "#return_to_airport_code")) {
 			return;
 		}
 		// Prevent page to be reloaded
