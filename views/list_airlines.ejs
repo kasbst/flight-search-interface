@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+ 
+<head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+   <%- include partials/header.ejs %>
+ 
+   <title>Flight Interface</title>
+</head>
+<body data-spy="scroll" data-target="#spy-scroll-id">
+	<%- include partials/navigation.ejs %>
+	<div class="container">
+		<h1>Airlines Available</h1>
+		<br>
+	<table class="table table-striped">
+	  <tr>
+	    <th>Airline Code</th>
+		<th>Airline Name</th>
+	  </tr>
+	  <% airlines.forEach(function(airline) { %>
+	  <tr>
+	    <td><%= airline.code %></td>
+		<td><%= airline.name %></td>
+	  </tr>
+	  <% }); %>
+    </table>
+</div>	
+	<%- include partials/footer.ejs %>	
+</body>
+</html>
