@@ -24,7 +24,7 @@ $(function() {
 		}
     });
     $( "#DepartureTo" ).autocomplete({
-        source: function(request, response) {
+                source: function(request, response) {
 			GetAirportsData(request, response);
 		},
 		minlength: 2,
@@ -34,7 +34,7 @@ $(function() {
 		}
     });
     $( "#ReturnFrom" ).autocomplete({
-        source: function(request, response) {
+                source: function(request, response) {
 			GetAirportsData(request, response);
 		},
 		minlength: 2,
@@ -45,7 +45,7 @@ $(function() {
 		}
     });
     $( "#ReturnTo" ).autocomplete({
-        source: function(request, response) {
+                source: function(request, response) {
 			GetAirportsData(request, response);
 		},
 		minlength: 2,
@@ -69,12 +69,12 @@ $(function() {
 		   			  airports.push(data[key].cityName + " - " + data[key].airportName + " (" + data[key].airportCode + ")");
 		   		  }
 		   	  }
-		      response( airports );
+		          response( airports );
 		   },
 		   complete: function (test, status) {
 			   console.log(status);
 		   }
-	    });
+	        });
 	};
 	
 	/*
