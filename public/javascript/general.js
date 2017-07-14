@@ -67,7 +67,7 @@ $(document).ready(function($) {
 		// Perform /search/:airline_code requests
 		for (var i = 0; i < airline_codes.length; i++) {
 			var request = $.post("/search/" + airline_codes[i], $(this).serialize(), function( data ) {
-				var flights = data;
+			    var flights = data;
 			    CreateTable(table, flights);
 			    CreateModal(flights, "DeparturesModal", "#DeparturesModalPlaceholder");			
 			});
@@ -145,8 +145,7 @@ $(document).ready(function($) {
 		var to_input_field   = $(ToId).val();
 		var date_input_field = $(dateId).val();
 		var from_airport_code = $(FromAirportCodeId).val();
-		var to_airport_code   = $(ToAirportCodeId).val()
-		console.log(from_airport_code + to_airport_code);
+		var to_airport_code   = $(ToAirportCodeId).val();
 
 		// Check if any of form's input fields are empty and display error code.
 		if (!from_input_field || !to_input_field || !date_input_field) {
