@@ -21,15 +21,14 @@ function GetFlights (url, callback) {
 		statusCode: 0,
 		data: ""
 	};
-	request(url, function (err, response, body) {
-		
-    	if (err || response.statusCode !== 200) {
-			flights.statusCode = 500;
-    	} else {
-    		flights.statusCode = 200;
-			flights.data = JSON.parse(body);			
-    	}
-		callback(flights);
+	request(url, function (err, response, body) {		
+    	      if (err || response.statusCode !== 200) {
+		    flights.statusCode = 500;
+    	      } else {
+    		    flights.statusCode = 200;
+		    flights.data = JSON.parse(body);			
+    	      }
+	      callback(flights);
 	});
 }
 
