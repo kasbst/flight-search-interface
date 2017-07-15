@@ -48,7 +48,7 @@ $(document).ready(function($) {
     */	
     $("#DepartureForm").on("submit", function (e) {
         // function FormInputVerification (e, FromId, ToId, dateId, LoaderId, TablePlaceHolderId, 
-        // errorId,FromAirportCodeId, ToAirportCodeId);
+        // errorId, FromAirportCodeId, ToAirportCodeId);
         if(FormInputVerification (e, "#DepartureFrom", "#DepartureTo", "#DepartureDate", 
            "#DeparturesLoading", "#DeparturesTablePlaceholder", "#DeparturesError", 
            "#departure_from_airport_code", "#departure_to_airport_code")) {
@@ -59,9 +59,11 @@ $(document).ready(function($) {
         var form = this;
         console.log();
 		
-        // function FlightSearch(form, AirlinesFieldId, ModalPlaceholderId, ModalType, LoadingId, TablePlaceholderId);
+        // function FlightSearch(form, AirlinesFieldId, ModalPlaceholderId, ModalType, LoadingId, TablePlaceholderId,
+        // InitializeTableCallback, ResetAirlinesAndAirportsFieldsCallback;
         FlightSearch(form, "#departure_airlines", "#DeparturesModalPlaceholder", 
-        "DeparturesModal", "#DeparturesLoading", "#DeparturesTablePlaceholder");
+        "DeparturesModal", "#DeparturesLoading", "#DeparturesTablePlaceholder", InitializeDeparturesTable,
+        ResetDepartureAirlinesAndAirportsFields);
 
         // Reset form input fields.
         form.reset();
@@ -93,9 +95,11 @@ $(document).ready(function($) {
         var form = this;
         console.log();
 		
-        // function FlightSearch(form, AirlinesFieldId, ModalPlaceholderId, ModalType, LoadingId, TablePlaceholderId);
+        // function FlightSearch(form, AirlinesFieldId, ModalPlaceholderId, ModalType, LoadingId, TablePlaceholderId,
+        // InitializeTableCallback, ResetAirlinesAndAirportsFieldsCallback;
         FlightSearch(form, "#return_airlines", "#ReturnsModalPlaceholder", 
-        "ReturnsModal", "#ReturnsLoading", "#ReturnsTablePlaceholder");
+        "ReturnsModal", "#ReturnsLoading", "#ReturnsTablePlaceholder", InitializeReturnsTable, 
+        ResetReturnAirlinesAndAirportsFields);
 
         // Reset form input fields.
         form.reset();
@@ -156,20 +160,15 @@ $(document).ready(function($) {
     * data returned
     */
     function FlightSearch(form, AirlinesFieldId, ModalPlaceholderId, 
-                          ModalType, LoadingId, TablePlaceholderId) {
+                          ModalType, LoadingId, TablePlaceholderId, 
+                          InitializeTableCallback, ResetAirlinesAndAirportsFieldsCallback) {
         // Get airline codes
         var airline_codes = $(AirlinesFieldId).val().split(',');
 
         var promises = [];
         InitializeModalPlaceholder(ModalPlaceholderId);
 		
-        var table;
-        if (TablePlaceholderId === "#ReturnsTablePlaceholder") {
-            table = InitializeReturnsTable();
-        }
-        if (TablePlaceholderId === "#DeparturesTablePlaceholder") {
-            table = InitializeDeparturesTable();
-        }
+        var table = InitializeTableCallback();
 
         // Perform /search/:airline_code requests
         for (var i = 0; i < airline_codes.length; i++) {
@@ -177,20 +176,15 @@ $(document).ready(function($) {
                  var flights = data;
                  CreateTable(table, flights);
                  CreateModal(flights, ModalType, ModalPlaceholderId);
-            });
-            promises.push(request);
+             });
+             promises.push(request);
         }
 
         // When all requests are completed display the table and remove loader animation.
         $.when.apply(null, promises).done(function(){
             $(LoadingId).empty();
             $(TablePlaceholderId).html(table);
-            if (ModalType === "ReturnsModal") {
-                ResetReturnAirlinesAndAirportsFields();
-            }
-            if (ModalType === "DeparturesModal") {
-                ResetDepartureAirlinesAndAirportsFields();
-            }
+            ResetAirlinesAndAirportsFieldsCallback();
         })
     };
 
