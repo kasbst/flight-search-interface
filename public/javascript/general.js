@@ -162,7 +162,14 @@ $(document).ready(function($) {
 
         var promises = [];
         InitializeModalPlaceholder(ModalPlaceholderId);
-        var table = InitializeReturnsTable();
+		
+        var table;
+        if (TablePlaceholderId === "#ReturnsTablePlaceholder") {
+            table = InitializeReturnsTable();
+        }
+        if (TablePlaceholderId === "#DeparturesTablePlaceholder") {
+            table = InitializeDeparturesTable();
+        }
 
         // Perform /search/:airline_code requests
         for (var i = 0; i < airline_codes.length; i++) {
